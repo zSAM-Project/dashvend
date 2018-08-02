@@ -8,23 +8,23 @@ from bitcoin.core.serialize import ser_read, BytesSerializer
 
 
 class MainParams(bitcoin.core.CoreMainParams):
-    MESSAGE_START = b'\xbf\x0c\x6b\xbd'
-    DEFAULT_PORT = 9999
-    RPC_PORT = 9998
+    MESSAGE_START = b'\x2e\x74\x4c\x38'
+    DEFAULT_PORT = 43452
+    RPC_PORT = 43453
     DNS_SEEDS = ()
-    BASE58_PREFIXES = {'PUBKEY_ADDR': 76,
-                       'SCRIPT_ADDR': 16,
-                       'SECRET_KEY': 204}
+    BASE58_PREFIXES = {'PUBKEY_ADDR': 63,
+                       'SCRIPT_ADDR': 139,
+                       'SECRET_KEY': 191}
 
 bitcoin.params = bitcoin.MainParams = MainParams
 
 
 class TestNetParams(bitcoin.core.CoreTestNetParams):
-    MESSAGE_START = b'\xce\xe2\xca\xff'
-    DEFAULT_PORT = 19999
-    RPC_PORT = 19998
+    MESSAGE_START = b'\x42\x75\x64\xb9'
+    DEFAULT_PORT = 43454
+    RPC_PORT = 43455
     DNS_SEEDS = ()
-    BASE58_PREFIXES = {'PUBKEY_ADDR': 139,
+    BASE58_PREFIXES = {'PUBKEY_ADDR': 125,
                        'SCRIPT_ADDR': 19,
                        'SECRET_KEY': 239}
 
@@ -32,7 +32,7 @@ bitcoin.TestNetParams = TestNetParams
 
 import bitcoin.net
 
-bitcoin.net.PROTO_VERSION = 70103
+bitcoin.net.PROTO_VERSION = 70915
 
 
 class CInv(bitcoin.net.CInv):
