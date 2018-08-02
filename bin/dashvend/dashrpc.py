@@ -28,7 +28,7 @@ class DashRPC(object):
                  ):
         self.mainnet = mainnet
         self.datadir = os.path.join(os.environ['HOME'],
-                                    '.dash', (not mainnet and 'testnet' or ''))
+                                    '.stamp', (not mainnet and 'testnet' or ''))
         self.conffile = conf and conf or os.path.join(self.datadir, 'dash.conf')
         self.config = {}
         self.cpu_pct = simplemovingaverage(5)
@@ -36,7 +36,7 @@ class DashRPC(object):
         if 'rpcbind' not in self.config:
             self.config['rpcbind'] = '127.0.0.1'
         if 'rpcport' not in self.config:
-            self.config['rpcport'] = mainnet and 9998 or 19998
+            self.config['rpcport'] = mainnet and 43452 or 43454
 
     def _parse_conffile(self):
         with open(self.conffile, 'r') as f:
@@ -62,8 +62,8 @@ class DashRPC(object):
         return self._proxy
 
     def get_cpu_average(self):
-        pidfile = self.mainnet and '.dash/dashd.pid' or '.dash/testnet/testnet3/dashd.pid'  # noqa
-        cmd = "top -p `cat $HOME/%s` -n1 | awk '/ dashd /{print $10}'" % pidfile
+        pidfile = self.mainnet and '.stamp/stamp.pid' or '.stamp/testnet/testnet3/stamp.pid'  # noqa
+        cmd = "top -p `cat $HOME/%s` -n1 | awk '/ stamp /{print $10}'" % pidfile
         cpu = subprocess.check_output(cmd, shell=True).rstrip('\n') or 100
         return self.cpu_pct(cpu)
 
@@ -77,11 +77,11 @@ class DashRPC(object):
             self._proxy.getinfo()
             self.responding = True
         except (ValueError, socket.error, httplib.CannotSendRequest) as e:
-            # print "daemon offline"
+            print "daemon offline"
             pass
         except JSONRPCException as e:
             # "loading block index"
-            # print str(e.error['message'])
+            print str(e.error['message'])
             pass
 
         try:
@@ -89,7 +89,7 @@ class DashRPC(object):
             if 'Node just started' not in resp:
                 self.synchronised = True
         except (ValueError, socket.error, httplib.CannotSendRequest) as e:
-            # print "daemon offline"
+            print "daemon offline"
             pass
         except JSONRPCException as e:
             resp = str(e.error['message'])
