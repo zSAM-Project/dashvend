@@ -29,7 +29,7 @@ class DashRPC(object):
         self.mainnet = mainnet
         self.datadir = os.path.join(os.environ['HOME'],
                                     '.stamp', (not mainnet and 'testnet' or ''))
-        self.conffile = conf and conf or os.path.join(self.datadir, 'dash.conf')
+        self.conffile = conf and conf or os.path.join(self.datadir, 'stamp.conf')
         self.config = {}
         self.cpu_pct = simplemovingaverage(5)
         self._parse_conffile()
