@@ -19,7 +19,7 @@ from bitcoin.messages import msg_version, msg_getdata, msg_pong, MsgSerializable
 class DashP2P(object):
 
     def __init__(self, mainnet=False, host="127.0.0.1", port=None):
-        port = port or (mainnet and 9999 or 19999)
+        port = port or (mainnet and 43452 or 43454)
         self.mainnet = mainnet
         self.host = host
         self.port = port
